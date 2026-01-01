@@ -1,26 +1,45 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer components {
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Custom Calendar Styles for Pop Theme */
+  .react-calendar {
+    @apply w-full bg-white border-4 border-black font-sans rounded-pop p-4 shadow-[8px_8px_0px_0px_rgba(0, 0, 0, 1)];
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  .react-calendar__navigation {
+    @apply flex mb-4;
+  }
+
+  .react-calendar__navigation button {
+    @apply min-w-[44px] bg-white text-xl font-black rounded-lg hover:bg-pop-yellow disabled:bg-gray-100 transition-colors;
+  }
+
+  .react-calendar__month-view__weekdays {
+    @apply text-center font-bold text-gray-500 uppercase text-xs mb-2;
+  }
+
+  .react-calendar__tile {
+    @apply max-w-full p-4 bg-white text-center rounded-lg hover:bg-pop-blue hover:text-white transition-colors font-bold text-gray-700;
+  }
+
+  .react-calendar__tile--now {
+    @apply bg-pop-yellow text-black;
+  }
+
+  .react-calendar__tile--active {
+    @apply bg-pop-pink text-white shadow-[4px_4px_0px_0px_rgba(0, 0, 0, 1)] transform -translate-y-1 !important;
+  }
+
+  .react-calendar__tile:disabled {
+    @apply bg-gray-100 text-gray-300 cursor-not-allowed hover:bg-gray-100 hover:text-gray-300 shadow-none transform-none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
