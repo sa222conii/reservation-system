@@ -55,16 +55,18 @@ export default function BookPage() {
                 }),
             });
 
-            const { sessionId, error } = await res.json();
+            const { sessionId, url, error } = await res.json();
 
             if (error) {
                 alert(error);
                 return;
             }
 
-            // Load Stripe Checkout
-            const stripe = require('@stripe/stripe-js').loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-            (await stripe).redirectToCheckout({ sessionId });
+            if (url) {
+                window.location.href = url;
+            } else {
+                alert("Failed to create checkout session");
+            }
 
         } catch (err) {
             console.error(err);

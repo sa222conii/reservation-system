@@ -35,9 +35,6 @@ export const authOptions: NextAuthOptions = {
             return session;
         },
     },
-    pages: {
-        signIn: '/auth/signin', // Custom signin page if needed, or default
-    },
 }
 
 const handler = NextAuth(authOptions)
