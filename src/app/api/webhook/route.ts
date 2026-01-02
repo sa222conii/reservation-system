@@ -122,4 +122,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ received: true });
 }
 
+export async function GET() {
+    return NextResponse.json({ status: 'ok', message: 'Webhook endpoint is active' });
+}
+
 export const dynamic = 'force-dynamic';
