@@ -119,7 +119,7 @@ export async function POST(req: Request) {
                                     },
                                     {
                                         type: "mrkdwn",
-                                        text: `*Date:*\n${startTime.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}`
+                                        text: `*Date:*\n${startTime.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}`
                                     },
                                     {
                                         type: "mrkdwn",

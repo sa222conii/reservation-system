@@ -19,8 +19,8 @@ export async function POST(req: Request) {
 
     // Generate a reservation start ISO string
     // Date is "YYYY-MM-DD", time is "HH:mm"
-    // Note: Handling timezone properly is crucial in production, assuming JST/Local here for simplicity or UTC
-    const startTime = new Date(`${date}T${time}:00`);
+    // Validating JST timezone explicitly to ensure consistent time across environments (e.g. Vercel UTC)
+    const startTime = new Date(`${date}T${time}:00+09:00`);
 
     // Find service details
     // For now, if DB is empty, fallback to mock data or error
