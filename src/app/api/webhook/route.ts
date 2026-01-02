@@ -45,6 +45,31 @@ export async function POST(req: Request) {
             const startTime = new Date(reservationDate);
             const endTime = addMinutes(startTime, parseInt(serviceDuration));
 
+            // Ensure Service exists (to handle mock data used in checkout)
+            const serviceExists = await prisma.service.findUnique({ where: { id: serviceId } });
+            if (!serviceExists) {
+                console.log(`🛠 Service ${serviceId} not found in DB. Creating it...`);
+                // Mock data definitions matching checkout route
+                const MOCK_SERVICES: any = {
+                    'cut': { name: 'Hair Cut', price: 5000, duration: 60 },
+                    'color': { name: 'Coloring', price: 8000, duration: 90 },
+                    'spa': { name: 'Head Spa', price: 4000, duration: 45 },
+                };
+
+                const mockData = MOCK_SERVICES[serviceId];
+                if (mockData) {
+                    await prisma.service.create({
+                        data: {
+                            id: serviceId,
+                            ...mockData
+                        }
+                    });
+                    console.log(`✅ Created service record for ${serviceId}`);
+                } else {
+                    console.warn(`⚠️ Unknown service ID: ${serviceId}. Creation might fail if FK constraint is enforced.`);
+                }
+            }
+
             // 1. Create Reservation in DB
             console.log('💾 Creating reservation in database...');
             const reservation = await prisma.reservation.create({
